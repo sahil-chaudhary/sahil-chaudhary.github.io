@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+:root {
+  --blue: #1400C8;
+  --white: #FFFFFF;
+  --off-white: #F4F2EE;
+  --red: #E8000D;
+  --dark: #0D0D0D;
+  --card-bg: #FFFFFF;
+  --text-muted: #555;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--white);
+  border-radius: 999px;
+  margin: 24px auto;
+  max-width: 960px;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--blue);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--dark);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--blue);
+}
+
+/* ── PAGE WRAPPER ── */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── HERO (About page) ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+  padding: 40px 0 48px;
+}
+
+.hero-text h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.hero-text .role {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  color: rgba(255,255,255,0.88);
+  font-size: 0.92rem;
+  margin-bottom: 16px;
+  max-width: 520px;
+}
+
+.hero-text p strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
+/* Links inside the blue hero section */
+.hero-text a {
+  color: #ffffff;
+  text-underline-offset: 3px;
+}
+
+.hero-text a:hover {
+  color: #FFFFFF;
+}
+.contact-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  padding: 7px 18px;
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+
+.contact-links a:hover {
+  background: var(--white);
+  color: var(--blue);
+  border-color: var(--white);
+}
+
+.hero-photo {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--card-bg);
+  color: var(--dark);
+  border-radius: 12px;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+}
+
+.card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: var(--dark);
+}
+
+/* ── NEWS ── */
+.news-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  align-items: start;
+}
+
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--blue);
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.news-tag.red { background: var(--red); }
+.news-tag.dark { background: var(--dark); }
+
+.news-text {
+  font-size: 0.88rem;
+  color: #222;
+  line-height: 1.6;
+}
+
+.news-text strong { color: var(--blue); }
+.news-text .highlight { color: var(--red); font-weight: 700; }
+
+/* ── PUBLICATIONS ── */
+.pub-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.pub-item:last-child { border-bottom: none; }
+
+.pub-venue {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.pub-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-decoration: none;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.pub-title:hover { color: var(--blue); }
+
+.pub-authors {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.pub-links {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.pub-links a {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+  text-decoration: none;
+  border: 1.5px solid var(--blue);
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.pub-links a:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+/* ── BLOGS ── */
+.blog-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.blog-card {
+  border: 1.5px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 24px 28px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.2s;
+  display: block;
+}
+
+.blog-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(20,0,200,0.08);
+}
+
+.blog-date {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.blog-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.blog-excerpt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.blog-tags {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #f0f0f8;
+  color: var(--blue);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+/* ── NOTES ── */
+.notes-section {
+  margin-bottom: 32px;
+}
+
+.notes-section h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed #eee;
+  gap: 16px;
+}
+
+.note-item:last-child { border-bottom: none; }
+
+.note-title {
+  font-size: 0.88rem;
+  color: var(--dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.note-title:hover { color: var(--blue); }
+
+.note-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state p {
+  font-size: 0.88rem;
+  margin-top: 12px;
+}
+
+/* ── PAGE HEADER (non-home pages) ── */
+.page-header {
+  padding: 36px 0 32px;
+}
+
+.page-header h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  nav {
+    border-radius: 16px;
+    margin: 12px;
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links { gap: 16px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    order: -1;
+  }
+
+  .contact-links { justify-content: center; }
+
+  .card { padding: 24px 20px; }
+
+  .news-item { grid-template-columns: 1fr; }
+}
