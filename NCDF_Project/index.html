@@ -63,7 +63,7 @@
 <section class="section" id="motivation">
   <h2>Motivation</h2>
   <p>
-    Fill this later
+    The classical techniques in control synthesis like sum of squares, linear quadratic regulators and semidefinite programming are quire expensive and do not scale well to high dimensional systems. The recent advances in deep learning have shown that Lyapunov based methods can be used to learn stabilizing controllers for high dimensional systems. However, Lyapunov based methods donot work well in presence of multiple equilibria in the system. Further, combining two Lyapunov based controllers does not guarantee stability of the combined controller &mdash; requires to learn a new Lyapunov function for the combined controller. In this work, we propose the <strong>use of density functions</strong> as a dual alternative to Lyapunov functions. Density functions can be used to certify stability of systems with multiple equilibria and also allow for combining multiple controllers while still guaranteeing stability of the combined controller.
   </p>
   
 </section>
@@ -81,7 +81,7 @@
       <ul>
         <li>$\rho(x) > 0$ for all $x$</li>
         <li>$\int_{\|x\| \ge 1} \frac{\rho(x)\|f(x)+g(x)u(x)\|}{\|x\|} < \infty$</li>
-        <li>$\nabla \cdot \big[\rho(x)(f(x)+g(x)u(x))\big] > 0$</li>
+        <li>$\nabla \cdot \big[\rho(x)(f(x)+g(x)u(x))\big] > 0$ for almost all $x$</li>
       </ul>
     </div>
     <div class="col">
@@ -90,7 +90,7 @@
       <ul>
         <li>$V(x) > 0$ for all $x \ne 0$</li>
         <li>$V(0) = 0$</li>
-        <li>$\nabla V(x)^\top \big[f(x)+g(x)u(x)\big] < 0$</li>
+        <li>$\nabla V(x)^\top \big[f(x)+g(x)u(x)\big] < 0$ for all $x$</li>
       </ul>
     </div>
   </div>
@@ -98,15 +98,19 @@
     <img src="assets/density-vs-lyapunov.png" alt="3D surface plots comparing a density function and a Lyapunov function certifying stability of the inverted pendulum, next to a phase portrait of the system.">
     <figcaption>The idea is density of particles should increase as you are near the point of stability compared to the lyapunov function where energy decrease as you are near the point of stability.</figcaption>
   </figure>
+  As a result of the above Certification:
+  <ul>
+    <li>Density functions can certify stability of systems with multiple equilibria as a consequence of almost everywhere stability. The exceptional trajectories leaving the set are trajectories leading to unstable equilibria. </li>
+    <li>Density functions allow for <strong>combining multiple controllers</strong> while <strong>still</strong> guaranteeing stability of the combined controller.</li>
+  </ul>
 </section>
 
 <!-- NCDF parameterization -->
 <section class="section" id="ncdf">
   <h2>Neural Control Density Functions (NCDFs)</h2>
   <p>
-   Some text later
+    The density function $\rho$ must satisfy the integrability condition. Note that the divergence condition associated with density function is convex in the pair $(\rho, u \rho)$. Thus, we set $\psi(x) := \rho(x)u(x)$ and search over the pair $(\rho, \psi)$ where the control can always be recovered as $u=\psi/ \rho$. We propose a novel exponential parameterization that provably satisfies this condition:
   </p>
-  <p>We set $\psi(x) := \rho(x)u(x)$ and search over the pair $(\rho, \psi)$:</p>
   <div class="eq-box">
     $$\rho(x) = \dfrac{a(x)}{\exp\!\left(\|x\|^2 + \|b(x)\|^2\right)} \qquad
     \psi(x) = \dfrac{c(x)}{\exp\!\left(\|x\|^2 + \|b(x)\|^2\right)}$$
@@ -145,10 +149,10 @@
     u^\star(x) = \sum_{i=1}^{N} \frac{\rho_i(x)\,u_i(x)}{\rho^\star(x)}$$
   </div>
   <p>
-    talk to chai later about this
+    The resultant blended controller $u^\star$ is guaranteed to be stabilizing and the certificate for the blended controller is simply the sum of the individual certificates. Let $D_i \subset Q_i$ be the sublevel set of the density function $\rho_i$ and $Q_i$ be the region of attraction corresponding to the $i^{th}$ controller, and let $D^\star \subset Q^\star$ be the sublevel set of the blended density function $\rho^\star$. Then, we can show that:
   </p>
   <div class="eq-box" style="text-align:center;font-weight:600;">
-    $$\bigcup_i D_i \;\subseteq\; D^\star$$
+    $$\bigcup_i D_i \;\subseteq\; D^\star \subseteq Q^\star$$
   </div>
   <p>
     In other words, blending controllers with density functions can only <em>help</em> &mdash; the blended
@@ -164,7 +168,14 @@
 <section class="section" id="safety">
   <h2>Density Functions for Safety</h2>
   <p>
-    some text later
+    A natural question to ask is whether density functions can be used to certify safety as well. We show that the answer is yes, and we can jointly certify stability and safety by combining density functions with control barrier functions (CBFs). We say for a system $\dot{x} = f(x) + g(x)u$ with a safe set $\mathcal{C} = \{x : h(x) \ge 0\}$, the system is safe if there exists a control $u$ such that:
+  </p>
+  <div class="eq-box">
+    $$ L_f h(x) + L_g h(x) u + \alpha(h(x)) \ge 0, \quad \forall x \in \mathcal{C}$$
+    $$ \rho(x) \big(L_f h(x)  + \alpha(h(x))\big) + \psi(x)L_g h(x) \ge 0, \quad \forall x \in \mathcal{C}$$
+  </div>
+  <p>
+    The second condition above is a <strong>density-based CBF condition</strong> that guarantees safety of the system. We can then train a safe-stabilizing NCDF controller by adding the density-based CBF condition to the loss function:
   </p>
   <div class="eq-box">
     $$\mathcal{L}_{\text{safe}}(\theta) = \mathcal{L}(\theta) \;+\;
@@ -175,10 +186,16 @@
     <figcaption>Density-function contours and flow field for a safe-stabilizing NCDF-CBF controller. Trajectories are steered around the unsafe regions (dark discs) and converge to the origin.</figcaption>
   </figure> -->
 
-  <div class="video-slot">
-    <span>&#9654; Video: particle trajectory avoiding the unsafe region under the NCDF-CBF controller<br>
-    <span class="small-note">Replace this block's inner &lt;video&gt</span></span>
-  </div>
+
+  <figure>
+    <div style="aspect-ratio:1/1; background:#ffffff; border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+      <img src="assets/safety_particle_trajectory.gif">
+    </div>
+    <figcaption style="text-align: center;">
+      Particle avoiding unsafe set and heading towards point of stability.
+    </figcaption>
+  </figure> 
+</section>
   <!--
     TODO: swap the .video-slot div above for something like:
     <video class="video-slot" style="background:#000;" controls playsinline muted loop>
