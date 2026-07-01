@@ -6,6 +6,14 @@
 <title>Blending Neural Control Density Functions for Stabilization and Safety</title>
 <meta name="description" content="Neural Control Density Functions (NCDFs): a.e. stability certification, controller blending with region-of-attraction guarantees, and safe-stable control synthesis.">
 <link rel="stylesheet" href="style.css">
+<style>
+  html { scroll-behavior: smooth; }
+  .ref-list { padding-left: 22px; }
+  .ref-list li { margin-bottom: 10px; line-height: 1.5; scroll-margin-top: 90px; }
+  .ref-list li:target { background: #fff6cc; border-radius: 4px; padding: 2px 6px; margin-left: -6px; }
+  #references a[href^="#"], .section a[href^="#ref-"] { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .section a[href^="#ref-"]:hover { text-decoration-style: solid; }
+</style>
 
 <!-- KaTeX for equation rendering -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
@@ -63,7 +71,7 @@
 <section class="section" id="motivation">
   <h2>Motivation</h2>
   <p>
-    The classical techniques in control synthesis like sum of squares, linear quadratic regulators and semidefinite programming are quire expensive and do not scale well to high dimensional systems. The recent advances in deep learning have shown that Lyapunov based methods can be used to learn stabilizing controllers for high dimensional systems. However, Lyapunov based methods donot work well in presence of multiple equilibria in the system. Further, combining two Lyapunov based controllers does not guarantee stability of the combined controller &mdash; requires to learn a new Lyapunov function for the combined controller. In this work, we propose the <strong>use of density functions</strong> as a dual alternative to Lyapunov functions. Density functions can be used to certify stability of systems with multiple equilibria and also allow for combining multiple controllers while still guaranteeing stability of the combined controller.
+    Classical techniques in control synthesis, such as sum-of-squares programming, linear quadratic regulators, and semidefinite programming, are quite expensive and do not scale well to high-dimensional systems. Recent advances in deep learning have shown that Lyapunov-based methods can be used to learn stabilizing controllers for high-dimensional systems. However, Lyapunov-based methods do not work well in the presence of multiple equilibria in the system. Furthermore, combining two Lyapunov-based controllers does not guarantee the stability of the combined controller &mdash; instead, a new Lyapunov function must be learned for the combined controller. In this work, we propose the <strong>use of density functions</strong> as a dual alternative to Lyapunov functions. Density functions can be used to certify the stability of systems with multiple equilibria, and they also allow multiple controllers to be combined while still guaranteeing the stability of the combined controller.
   </p>
   
 </section>
@@ -76,7 +84,7 @@
   </p>
   <div class="two-col">
     <div class="col">
-      <h3>Stability via Density Function <span style="font-weight:400;color:#4d5566;">(Rantzer, 2001)</span></h3>
+      <h3>Stability via Density Function <span style="font-weight:400;color:#4d5566;">(<a href="#ref-rantzer2001">Rantzer, 2001</a>)</span></h3>
       <p style="font-size:14.5px;margin-bottom:8px;">A system is <strong>a.e. stable</strong> if there exists $\rho$ such that:</p>
       <ul>
         <li>$\rho(x) > 0$ for all $x$</li>
@@ -100,8 +108,9 @@
   </figure>
   As a result of the above Certification:
   <ul>
-    <li>Density functions can certify stability of systems with multiple equilibria as a consequence of almost everywhere stability. The exceptional trajectories leaving the set are trajectories leading to unstable equilibria. </li>
-    <li>Density functions allow for <strong>combining multiple controllers</strong> while <strong>still</strong> guaranteeing stability of the combined controller.</li>
+    <li>Density functions can <strong>certify stability of systems</strong> with multiple equilibria as a consequence of almost everywhere stability.</li>
+    <li>Density functions allow for <strong>blending multiple controllers</strong> while <strong>still</strong> guaranteeing stability of the combined controller.</li>
+    <li>The divergence criterion is <strong>convex in the pair $(\rho, u \rho)$</strong> which enabling the search of pair verifying the inequality.</li>
   </ul>
 </section>
 
@@ -118,7 +127,7 @@
   <p>
     The search over $(\rho,\psi)$ reduces to learning $(a, b, c)$, each parameterized using a neural network. We train with a
     counterexample-guided (CEGIS) loop: an SMT falsifier (dReal) searches for states that violate the
-    density or divergence conditions, and every counterexample found is added back to the training set.
+    density or divergence conditions, and every counterexample found is added back to the training set, similar to prior work like <a href="#ref-chang2019">Neural Lyapunov Control</a>. 
   </p>
   <div class="eq-box">
     $$\mathcal{L}(\theta) = \mathbb{E}\big[\max(0, -\rho_\theta(x)) + \max\!\big(0, -\nabla\cdot[\rho_\theta f + g\psi_\theta](x)\big)\big]$$
@@ -142,7 +151,7 @@
   <p>
     Because the stability condition is linear in $\rho$, several density/controller pairs
     $\{\rho_i, u_i\}_{i=1}^N$ &mdash; each individually stabilizing &mdash; can be combined into one
-    <strong>blended</strong> controller:
+    <strong><a href="#ref-rantzer-ceragioli2001">blended</a></strong> controller:
   </p>
   <div class="eq-box">
     $$\rho^\star(x) = \sum_{i=1}^{N} \rho_i(x), \qquad
@@ -160,7 +169,7 @@
   </p>
   <figure>
     <img src="assets/roa-plots.png">
-    <figcaption>Regions of attraction from individual NCDFs vs. the blended (mixed) NCDF vs. Yang et al. (2024)'s Neural Lyapunov Control, on the inverted pendulum and path-tracking tasks. </figcaption>
+    <figcaption>Regions of attraction from individual NCDFs vs. the blended (mixed) NCDF vs. <a href="#ref-yang2024">Yang et al. (2024)</a>'s Lyapunov Control, on the inverted pendulum and path-tracking tasks. </figcaption>
   </figure>
 </section>
 
@@ -168,7 +177,7 @@
 <section class="section" id="safety">
   <h2>Density Functions for Safety</h2>
   <p>
-    A natural question to ask is whether density functions can be used to certify safety as well. We show that the answer is yes, and we can jointly certify stability and safety by combining density functions with control barrier functions (CBFs). We say for a system $\dot{x} = f(x) + g(x)u$ with a safe set $\mathcal{C} = \{x : h(x) \ge 0\}$, the system is safe if there exists a control $u$ such that:
+    A natural question to ask is whether density functions can be used to certify safety as well. We show that the answer is yes, and we can jointly certify stability and safety by combining density functions with <a href="#ref-ames2019">control barrier functions (CBFs)</a>. We say for a system $\dot{x} = f(x) + g(x)u$ with a safe set $\mathcal{C} = \{x : h(x) \ge 0\}$, the system is safe if there exists a control $u$ such that:
   </p>
   <div class="eq-box">
     $$ L_f h(x) + L_g h(x) u + \alpha(h(x)) \ge 0, \quad \forall x \in \mathcal{C}$$
@@ -202,6 +211,28 @@
       <source src="assets/safety.mp4" type="video/mp4">
     </video>
   -->
+</section>
+
+<!-- References -->
+<section class="section" id="references">
+  <h2>References</h2>
+  <ol class="ref-list">
+    <li id="ref-rantzer2001">
+      A. Rantzer. <em>A dual to Lyapunov's stability theorem.</em> Systems &amp; Control Letters, 42(3):161&ndash;168, 2001.
+    </li>
+    <li id="ref-rantzer-ceragioli2001">
+      A. Rantzer and F. Ceragioli. <em>Smooth blending of nonlinear controllers using density functions.</em> In 2001 European Control Conference (ECC), pp. 2851&ndash;2853. IEEE, 2001.
+    </li>
+    <li id="ref-chang2019">
+      Y.-C. Chang, N. Roohi, and S. Gao. <em>Neural Lyapunov control.</em> In Advances in Neural Information Processing Systems (NeurIPS), volume 32, 2019.
+    </li>
+    <li id="ref-ames2019">
+      A. D. Ames, S. Coogan, M. Egerstedt, G. Notomista, K. Sreenath, and P. Tabuada. <em>Control barrier functions: Theory and applications.</em> In 2019 18th European Control Conference (ECC), pp. 3420&ndash;3431. IEEE, 2019.
+    </li>
+    <li id="ref-yang2024">
+      L. Yang, H. Dai, Z. Shi, C.-J. Hsieh, R. Tedrake, and H. Zhang. <em>Lyapunov-stable neural control for state and output feedback: A novel formulation.</em> In International Conference on Machine Learning (ICML), pp. 56033&ndash;56046. PMLR, 2024.
+    </li>
+  </ol>
 </section>
 
 <!-- Bibtex -->
