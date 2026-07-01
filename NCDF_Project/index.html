@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blending Neural Control Density Functions for Stabilization and Safety</title>
+<meta name="description" content="Neural Control Density Functions (NCDFs): a.e. stability certification, controller blending with region-of-attraction guarantees, and safe-stable control synthesis.">
+<link rel="stylesheet" href="style.css">
+
+<!-- KaTeX for equation rendering -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]
+  });"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="dot"></span> Neural Control Density Functions
+</div>
+
+<header class="hero">
+  <span class="badge">ICML 2026</span>
+  <h1>Blending Neural Control Density Functions<br>for Stabilization and Safety</h1>
+  <p class="authors">
+    Sahil Chaudhary<sup>*,1</sup> &nbsp;&middot;&nbsp;
+    Chaitanya Murti<sup>*,1,2</sup> &nbsp;&middot;&nbsp;
+    Chiranjib Bhattacharyya<sup>1</sup>
+  </p>
+  <p class="affiliations"><sup>1</sup>Indian Institute of Science &nbsp;&middot;&nbsp; <sup>2</sup>HP Inc. AI Lab  &nbsp;&middot;&nbsp; *Equal Contribution</p>
+  
+  <div class="hero-links">
+    <!-- TODO: replace with actual arXiv / PMLR link -->
+    <a class="pill-btn" href="https://openreview.net/pdf?id=IxBsOvMFXc">Paper</a>
+    <!-- TODO: replace with actual GitHub link -->
+    <a class="pill-btn" href="https://github.com/sahil-chaudhary/sahil-chaudhary.github.io">Code</a>
+  </div>
+</header>
+
+<!-- TL;DR -->
+<section class="section" id="tldr">
+  <h2>TL;DR</h2>
+  <div class="tldr-box">
+    <p>
+      Lyapunov functions are the standard certificate for neural-network control, but they cannot certify
+      stability when a system has multiple equilibria, and controller/certificate pairs generally can't be
+      combined. We use <strong>density functions</strong> &mdash; a dual certificate to Lyapunov functions &mdash;
+      to fix both problems. We introduce <strong>Neural Control Density Functions (NCDFs)</strong>, a novel
+      exponential parameterization that provably satisfies the integrability condition density certificates
+      require, prove that <strong>blending</strong> several NCDF controllers yields a region of attraction
+      containing the <em>union</em> of the constituent regions of attraction, and extend the framework to
+      jointly certify <strong>safety</strong> via control barrier functions.
+    </p>
+  </div>
+</section>
+
+<!-- Motivation -->
+<section class="section" id="motivation">
+  <h2>Motivation</h2>
+  <p>
+    Fill this later
+  </p>
+  
+</section>
+
+<!-- Density Functions -->
+<section class="section" id="density-functions">
+  <h2>Density Functions &mdash; A Dual Alternative</h2>
+  <p>
+    We utilize the idea of density function to address the challenges of Lyapunov function. 
+  </p>
+  <div class="two-col">
+    <div class="col">
+      <h3>Stability via Density Function <span style="font-weight:400;color:#4d5566;">(Rantzer, 2001)</span></h3>
+      <p style="font-size:14.5px;margin-bottom:8px;">A system is <strong>a.e. stable</strong> if there exists $\rho$ such that:</p>
+      <ul>
+        <li>$\rho(x) > 0$ for all $x$</li>
+        <li>$\int_{\|x\| \ge 1} \frac{\rho(x)\|f(x)+g(x)u(x)\|}{\|x\|} < \infty$</li>
+        <li>$\nabla \cdot \big[\rho(x)(f(x)+g(x)u(x))\big] > 0$</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Stability via Lyapunov Function</h3>
+      <p style="font-size:14.5px;margin-bottom:8px;">A system is <strong>stable</strong> if there exists $V$ such that:</p>
+      <ul>
+        <li>$V(x) > 0$ for all $x \ne 0$</li>
+        <li>$V(0) = 0$</li>
+        <li>$\nabla V(x)^\top \big[f(x)+g(x)u(x)\big] < 0$</li>
+      </ul>
+    </div>
+  </div>
+  <figure>
+    <img src="assets/density-vs-lyapunov.png" alt="3D surface plots comparing a density function and a Lyapunov function certifying stability of the inverted pendulum, next to a phase portrait of the system.">
+    <figcaption>The idea is density of particles should increase as you are near the point of stability compared to the lyapunov function where energy decrease as you are near the point of stability.</figcaption>
+  </figure>
+</section>
+
+<!-- NCDF parameterization -->
+<section class="section" id="ncdf">
+  <h2>Neural Control Density Functions (NCDFs)</h2>
+  <p>
+   Some text later
+  </p>
+  <p>We set $\psi(x) := \rho(x)u(x)$ and search over the pair $(\rho, \psi)$:</p>
+  <div class="eq-box">
+    $$\rho(x) = \dfrac{a(x)}{\exp\!\left(\|x\|^2 + \|b(x)\|^2\right)} \qquad
+    \psi(x) = \dfrac{c(x)}{\exp\!\left(\|x\|^2 + \|b(x)\|^2\right)}$$
+  </div>
+  <p>
+    The search over $(\rho,\psi)$ reduces to learning $(a, b, c)$, each parameterized using a neural network. We train with a
+    counterexample-guided (CEGIS) loop: an SMT falsifier (dReal) searches for states that violate the
+    density or divergence conditions, and every counterexample found is added back to the training set.
+  </p>
+  <div class="eq-box">
+    $$\mathcal{L}(\theta) = \mathbb{E}\big[\max(0, -\rho_\theta(x)) + \max\!\big(0, -\nabla\cdot[\rho_\theta f + g\psi_\theta](x)\big)\big]$$
+  </div>
+ 
+
+  <div class="video-slot">
+    <span>&#9654; Video: inverted pendulum stabilizing under the learned NCDF controller<br>
+    <span class="small-note">Replace this block's inner &lt;video&gt; source (see comment in index.html) with your rendered clip.</span></span>
+  </div>
+  <!--
+    TODO: swap the .video-slot div above for something like:
+    <video class="video-slot" style="background:#000;" controls playsinline muted loop>
+      <source src="assets/pendulum.mp4" type="video/mp4">
+    </video>
+  -->
+</section>
+
+<!-- Blending / RoA -->
+<section class="section" id="blending">
+  <h2>Expanding Regions of Attraction by Blending</h2>
+  <p>
+    Because the stability condition is linear in $\rho$, several density/controller pairs
+    $\{\rho_i, u_i\}_{i=1}^N$ &mdash; each individually stabilizing &mdash; can be combined into one
+    <strong>blended</strong> controller:
+  </p>
+  <div class="eq-box">
+    $$\rho^\star(x) = \sum_{i=1}^{N} \rho_i(x), \qquad
+    u^\star(x) = \sum_{i=1}^{N} \frac{\rho_i(x)\,u_i(x)}{\rho^\star(x)}$$
+  </div>
+  <p>
+    talk to chai later about this
+  </p>
+  <div class="eq-box" style="text-align:center;font-weight:600;">
+    $$\bigcup_i D_i \;\subseteq\; D^\star$$
+  </div>
+  <p>
+    In other words, blending controllers with density functions can only <em>help</em> &mdash; the blended
+    system's certified RoA contains the union of every constituent RoA.
+  </p>
+  <figure>
+    <img src="assets/roa-plots.png">
+    <figcaption>Regions of attraction from individual NCDFs vs. the blended (mixed) NCDF vs. Yang et al. (2024)'s Neural Lyapunov Control, on the inverted pendulum and path-tracking tasks. </figcaption>
+  </figure>
+</section>
+
+<!-- Safety -->
+<section class="section" id="safety">
+  <h2>Density Functions for Safety</h2>
+  <p>
+    some text later
+  </p>
+  <div class="eq-box">
+    $$\mathcal{L}_{\text{safe}}(\theta) = \mathcal{L}(\theta) \;+\;
+    \mathbb{E}\Big[\max\big(0,\, -\big[\rho(x)\big(L_f h(x)+\alpha(h(x))\big) + \psi(x) L_g h(x)\big]\big)\Big]$$
+  </div>
+  <!-- <figure>
+    <img src="assets/safety-plots.png" alt="Density function contours with flow field around unsafe obstacle regions, showing the learned safe controller steering trajectories around the obstacles toward the equilibrium.">
+    <figcaption>Density-function contours and flow field for a safe-stabilizing NCDF-CBF controller. Trajectories are steered around the unsafe regions (dark discs) and converge to the origin.</figcaption>
+  </figure> -->
+
+  <div class="video-slot">
+    <span>&#9654; Video: particle trajectory avoiding the unsafe region under the NCDF-CBF controller<br>
+    <span class="small-note">Replace this block's inner &lt;video&gt; source (see comment in index.html) with your rendered clip.</span></span>
+  </div>
+  <!--
+    TODO: swap the .video-slot div above for something like:
+    <video class="video-slot" style="background:#000;" controls playsinline muted loop>
+      <source src="assets/safety.mp4" type="video/mp4">
+    </video>
+  -->
+</section>
+
+<!-- Bibtex -->
+<section class="section" id="bibtex">
+  <h2>Bibtex</h2>
+  <div class="bibtex-box">
+    <button class="copy-btn" onclick="copyBibtex()">Copy</button>
+    <pre id="bibtex-text">@inproceedings{chaudhary2026blending,
+  title     = {Blending Neural Control Density Functions for Stabilization and Safety},
+  author    = {Chaudhary, Sahil and Murti, Chaitanya and Bhattacharyya, Chiranjib},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {306},
+  year      = {2026},
+  publisher = {PMLR}
+}</pre>
+  </div>
+</section>
+
+<footer>
+  Blending Neural Control Density Functions for Stabilization and Safety<br>
+  &copy; 2026 &middot; Machine Learning Lab, Indian Institute of Science
+</footer>
+
+<script>
+function copyBibtex() {
+  const text = document.getElementById('bibtex-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const original = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = original; }, 1500);
+  });
+}
+</script>
+
+</body>
+</html>
