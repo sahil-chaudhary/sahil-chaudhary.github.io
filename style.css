@@ -31,7 +31,7 @@ body {
 
 /* ── NAV ── */
 nav {
-  background: var(--white);
+  background: var(--off-white);
   border-radius: 999px;
   margin: 24px auto;
   max-width: 960px;
