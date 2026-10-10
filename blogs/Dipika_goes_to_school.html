@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dipika goes to school · Sahil Chaudhary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spectral:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .post-header {
+      padding: 56px 0 32px;
+    }
+    .post-header .post-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 14px;
+    }
+    .post-header h1 {
+      font-family: var(--display);
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      max-width: 700px;
+      color: var(--ink);
+    }
+    .post-header .post-dek {
+      margin-top: 14px;
+      font-family: var(--serif);
+      font-size: 0.98rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      max-width: 640px;
+    }
+    .post-hero {
+      margin: 0 0 28px;
+    }
+    .post-hero img {
+      width: 100%;
+      max-height: 460px;
+      object-fit: cover;
+      object-position: 50% 30%;
+      border-radius: 14px;
+      display: block;
+      border: 1px solid var(--line-strong);
+    }
+    .post-hero figcaption {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      text-align: center;
+    }
+    .post-body {
+      font-family:  Arial, Helvetica, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+    }
+    .post-body h2 {
+      font-family:  Arial, Helvetica, sans-serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      margin: 34px 0 14px;
+      color: var(--ink);
+    }
+    .post-body p { margin-bottom: 18px; }
+    .post-body ul { margin: 0 0 18px 22px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--ink); }
+    .post-body a { color: var(--pen-blue); text-decoration: none; border-bottom: 1.5px solid color-mix(in srgb, var(--pen-blue) 35%, transparent); }
+    .post-body a:hover { border-bottom-color: var(--pen-blue); }
+    .post-body blockquote {
+      border-left: 3px solid var(--pen-blue);
+      padding-left: 20px;
+      color: var(--ink-faint);
+      font-style: italic;
+      margin: 24px 0;
+    }
+    .post-body figure {
+      margin: 26px 0;
+    }
+    .post-body figure img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      border: 1px solid var(--line-strong);
+    }
+    .post-body figcaption {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      text-align: center;
+    }
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 10px;
+      margin: 28px 0 8px;
+    }
+    .photo-strip img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid var(--line-strong);
+    }
+    .photo-strip figcaption {
+      grid-column: 1 / -1;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      margin-top: 8px;
+      text-align: center;
+      font-style: italic;
+    }
+    @media (max-width: 640px) {
+      .photo-strip {
+        grid-template-columns: 1fr;
+      }
+      .photo-strip img { height: 220px; }
+    }
+    .back-link {
+      display: inline-block;
+      font-family: var(--mono);
+      margin-bottom: 24px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--pen-blue); }
+  </style>
+</head>
+<body>
+  <div class="grid-layer" aria-hidden="true"></div>
+  <div class="grain-layer" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="../index.html">Sahil Chaudhary<span class="dot">.</span></a>
+        <nav class="menu" aria-label="Primary">
+          <a href="../index.html">About</a>
+          <a href="../publications.html">Publications</a>
+          <a href="../blogs.html" aria-current="page">Blogs</a>
+          <a href="../notes.html">Notes</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+
+    <a href="../blogs.html" class="back-link">← Back to Blogs</a>
+
+    <div class="post-header">
+      <p class="post-meta">Oct 2026</p>
+      <h1>Dipika goes to school</h1>
+      <p class="post-dek">Mostly a set of complaints (This blog was started on 7th October)</p>
+    </div>
+
+    <section class="section-block" style="padding-top:0;">
+    <div class="panel">
+      <div class="post-body">
+
+        <p>
+            I was hoping to keep my page mostly academic and limiting my commentary about various economic situation of Nepal to Instagram or Facebook. I recently watched a video by <a href="https://www.youtube.com/watch?v=s5-NQwBsc0s">Herne Katha</a> and I could not stop myself from thinking and writing this blog. If you are able to understand Nepali, I would highly recommend to go through the channel and discover some of the stories they cover around Nepal. The video shared earlier does not currently have english subtitles and am not sure if you could understand it. Perhaps, some model which could translate such video would be helpful. 
+        </p>
+
+        <p>
+                
+            Following are mostly going to be set of complaints and grievances I hold regarding our country and am not sure what to make out of it. The solutions are clear: equal access to basic infrastructure and a little focus could solve the issues highlighted in the blog and earlier shared video. We nepalese seem to thrive in a lot of pain while being joyful and I don't think this should be the case. I think it is time that people working in academia should be reached out for help from government and they should work together for creating solutions which maximizes certain social welfare. 
+
+        </p>
+
+        <h2>The problem of bubble</h2>
+        <p>
+            Growing up in Nepal was difficult but I never felt that way because the internet was not quite popular back then and in fact, till 2022, it was considered cool to be on facebook and post pictures. I realised that was not the case in India when I was in Kota, Rajhistan, which is the story for some other time. Since, internet was not quite accessible till 2022 and most people did not care about things available on the internet either, I never really realised the difference or contrast in life inside and outside Nepal. 
+        </p>
+        <p>
+            I did understand that it was easier to earn money abroad as a kid mostly because of the fact that most of my friend's parents were working outside Nepal. This was and is still very common in the country. In fact, the phenomenon has been passed down to younger generation as well and you could now see houses with single family member or family members which would typically include grand parents and a housewife in these homes. Most of my friends from school I went to, are no longer in the country and have been studying and working in various places of the world and I must stress it is not by choice and out of necessity.
+        </p>
+
+        <p>
+            I vaguely remember multiple Nepal Bandhs during my school days where the classes would be cancelled randomly due to the fact that some party have decided to protest against the government. This was quite frequent and as a kid, I did like the idea that I did not have to go to school. Now that I am an adult and look back to these phenomenon and schools being affected, I find it weird in a way that most people found this appropriate and allowed it to happen. I can list multiple such problems with Nepal which are very basic and you would wonder how are these problems not fixable. These kind of problems are the reasons you would hear news like people of Nepal protesting to bring the king back or something around them disliking the current system and I do think most of them are valid. Unavailability of basic living conditions and facility which includes higher education and employment are few reasons for the recent Gen Z protest in Nepal which later overthrew the government and brought current Balen-led government to power. I am sad by the lifes affected during the protest. I myself was affected during this phase due to the fact that few people I had known were shot but thankfully were saved and now alive. I think the fact that these incidents happened and people known to me were affected during the protest made me focused more around economics and policy making. I did want to read economics at some point of my undergraduate but never got a chance and now due to these incidents, I happen to have picked up some books and learn on my own. I hope this administration finally looks outside kathmandu and acknowledge the problem of the country. 
+        </p>
+
+        <h2>Danger of Romanticizing Rural Hardship</h2>
+        <p>
+            Currently, Kathmandu has a population of 799.6k as per [https://worldpopulationreview.com/cities/nepal/kathmandu] and overly crowded as a city. The capital of the country has many problems and I understand the frustation of people living in the city and they must be heard. The problem arises when the residents of this city decides to romantacize the idea of rural life outside the valley. Most resisdents of this city seem to believe that kathmandu is Nepal and all the development must be limited to kathmandu which shall include schools, hospitals, employment or any other economic factor which improves the standard of living. They advocate for roads to be built outside the valley primarily so they can escape for a weekend or whenever city life exhausts them. This perspective is expected from those who have always viewed the rest of Nepal merely as a vacation destination.
+        </p>
+        <p>
+            These viewpoints are what leads to romanticism of the hills and mountains. There seems to be this rise of travelling, hiking and romanticsing the life in hills and mountains but most people don't seem to acknowledge the problems which comes with living in these parts of the country. These places in Nepal are severly underfunded and avoided for a long time. The numbers speak for themselves. In the 2026/27 budget, bagamati province recieved the largest allocation at roughly Rs. 66.93 billion, while Karnali province recieved nearly halft that amount, around Rs. 35.39 billion. I do think these budgets has to reevaluated with a perspective of mechanism design rather than problem solving perspective. Currently, what we are trying to do is solve the issues which comes with large population at a particular location but rather than doing that, if we could start thinking in terms of how we would like the population to behave, I believe that would be more fruitful.
+
+        </p>
+        <p>
+            We would like to believe that Nepal has successfully managed to fight some of the battles in the country and have managed to at the very least provide decent education to people coming out of under-priviliged class. The expectation of education is usually that this would lead to employment and an uplifted standard of living. This is something fair to assume but the premise is, we are providing decent education to every children in every part of the country. But that is simply not the reality on the ground.
+        </p>
+        <p>
+            In the Herne Katha video, it clearly shows the living condition of people living in humla and you would find it sad that children are being served chiura [beaten rice] for meals. They are being forced to use hanging bride to cross the karnali river in order to attend classes. I don't think anyone should be facing such living conditions or difficulty in 2026! We like to believe that we are at the pinnacle of human advancement, getting excited about AI solving complex mathematical problems or robots cleaning our rooms. Yet, when you watch these stories, you quickly realize how unevenly distributed the future really is.
+        </p>
+        <p>
+          While I appreciate the current government and attempts made by previous government, there seems to be this weird pattern among each government where they constantly avoid these parts of the country. In fact, this is not limited to hills and mountains, the places near the border of India and China are too severly underfunded as well. I am not writing this blog to show or seek sympathy, but to bring these issues to attention of my readers and at the very least people of Nepal. Many who visit my page are researchers or students interested in my academic work. Perhaps some of us, connected to policymakers or government bodies, can highlight these disparities and advocate for the future we actually want. 
+        </p>
+
+        <p>
+
+            Currently, I am heavily occupied with PhD application, so I lack the time to read and write as coherently as I would like. But I hope that once my applications are submitted, I can sit down, research these structural issues properly and continue the conversation.
+        </p>
+
+
+      </div>
+    </div>
+    </section>
+
+    </main>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
