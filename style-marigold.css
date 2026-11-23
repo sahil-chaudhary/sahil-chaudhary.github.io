@@ -60,6 +60,7 @@ header.nav{
   color:#fff; text-decoration:none;
 }
 .brand .dot{color:var(--pen-red);}
+.brand-deva{font-family:"Noto Serif Devanagari",var(--display); letter-spacing:0;}
 nav.menu{display:flex; gap:26px;}
 nav.menu a{
   font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
